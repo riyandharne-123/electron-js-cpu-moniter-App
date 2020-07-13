@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>PC performance</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./static/css/bootstrap.css">
+  </head>
+  <body>
+<div id="particles-js"></div>
+<div class="container">
+<div class="row">
+
+  <div class="box col">
+    <span class="label">CPU (%)</span>
+    <span id="cpu" style="color:white;">-</span>
+  </div>
+  <div class="box col">
+    <span class="label" >Free Mem (%)</span>
+    <span id="mem" style="color:white;">-</span>
+  </div>
+  <div class="box col">
+    <span class="label">Total Mem (GB)</span>
+    <span id="total-mem" style="color:white;">-</span>
+  </div>
+
+</div>
+</div>
+    <script>
+      const electron = require('electron');
+      const ipcRenderer = electron.ipcRenderer;
+      ipcRenderer.on('cpu',(event,data) => {
+  document.getElementById('cpu').innerHTML = data.toFixed(2);
+});
+ipcRenderer.on('mem',(event,data) => {
+  document.getElementById('mem').innerHTML = data.toFixed(2);
+});
+ipcRenderer.on('total-mem',(event,data) => {
+  document.getElementById('total-mem').innerHTML = data.toFixed(2);
+});
+    </script>
+        <script src="./static/particles/particles.js"></script>
+     <script src="./static/particles/app.js"></script>
+ 
+  </body>
+</html>
